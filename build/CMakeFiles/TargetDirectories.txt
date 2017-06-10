@@ -1,0 +1,6 @@
+/home/matheus/Documentos/Pasta/setimo_semestre/IAMJogos/individual_msm/build/CMakeFiles/rebuild_cache.dir
+/home/matheus/Documentos/Pasta/setimo_semestre/IAMJogos/individual_msm/build/CMakeFiles/edit_cache.dir
+/home/matheus/Documentos/Pasta/setimo_semestre/IAMJogos/individual_msm/build/CMakeFiles/mindscape.dir
+/home/matheus/Documentos/Pasta/setimo_semestre/IAMJogos/individual_msm/build/engine/CMakeFiles/rebuild_cache.dir
+/home/matheus/Documentos/Pasta/setimo_semestre/IAMJogos/individual_msm/build/engine/CMakeFiles/edit_cache.dir
+/home/matheus/Documentos/Pasta/setimo_semestre/IAMJogos/individual_msm/build/engine/CMakeFiles/engine.dir
