@@ -1,8 +1,10 @@
- #include <cmath>
- #include "../include/animation.hpp"
- #include "../include/game.hpp"
+#include <cmath>
+#include "../include/animation.hpp"
+#include "../include/game.hpp"
 
- using namespace engine;
+using namespace engine;
+using par = std::pair<int,int>;
+using pares = std::pair<par,par>;
 
 bool Animation::load(){
 
@@ -36,20 +38,24 @@ void Animation::draw(int x, int y){
         }
       }
 
-      //std::cout << "Tempo decorrido:  " << playing_duration_of_animation << std::endl;
-
       actual_sprite = (playing_duration_of_animation / time_of_sprite) + first_sprite;
-      //std::cout << "Sprite atual:  " << actual_sprite << std::endl;
 
       int actual_line = actual_sprite / sprite_columns;
       int actual_column  = actual_sprite % sprite_columns;
-      //std::cout << "Linha atual:  " << actual_line << std::endl;
-      //std::cout << "Coluna atual:  " << actual_column << std::endl;
 
-      coordinatesOnTexture.first = actual_column * dimensionOnTexture.first;
-       //std::cout << "EM X:  " << coordinatesOnTexture.first << std::endl;
-      coordinatesOnTexture.second = actual_line * dimensionOnTexture.second;
-       //std::cout << "EM Y:  " << coordinatesOnTexture.second << std::endl;
+      if(sprites_sizes.size() == 0){
+        coordinatesOnTexture.first = actual_column * dimensionOnTexture.first;
+        coordinatesOnTexture.second = actual_line * dimensionOnTexture.second;
+      }else{
+        coordinatesOnTexture.first = sprites_sizes[actual_column].first.first;
+        coordinatesOnTexture.second = sprites_sizes[actual_column].first.second * actual_line;
+        dimensionOnTexture.first = sprites_sizes[actual_column].second.first;
+        dimensionOnTexture.second = sprites_sizes[actual_column].second.second;
+      }
 
     Image::draw(x,y);
 }
+
+void Animation::set_sprites_sizes(std::vector<pares> p_sprites_sizes){
+  sprites_sizes = p_sprites_sizes;
+} 

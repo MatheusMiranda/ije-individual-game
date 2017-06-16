@@ -1,16 +1,20 @@
 #ifndef ANIMATION_H
- #define ANIMATION_H
+#define ANIMATION_H
 
- # include <string>
- #include "image.hpp"
- #include "time.hpp"
- #include "timer.hpp"
+#include <string>
+#include "image.hpp"
+#include "time.hpp"
+#include "timer.hpp"
+#include <vector>
 
- namespace engine{
+using par = std::pair<int,int>;
+using pares = std::pair<par,par>;
 
-     class Animation : public Image{
+namespace engine{
 
-     protected:
+  class Animation : public Image{
+
+    protected:
 
       //Construtor de image
       int is_active = false;
@@ -31,30 +35,31 @@
       //Atributo para o timer;
       Timer * time;
       int aux_time;
+      std::vector<pares> sprites_sizes;
+    
+    public:
 
+        Animation(SDL_Renderer* p_renderer,
+            std::string path,
+            bool is_active,
+            std::pair<int, int> displacement,
+            int p_render_priority,
+            unsigned int p_sprite_lines=1,
+            unsigned int p_sprite_columns=1,
+            double p_duration_of_animation =1.0,
+            bool p_in_loop = true)
+          : Image(p_renderer, path, is_active, displacement,p_render_priority), sprite_lines(p_sprite_lines),
+          sprite_columns(p_sprite_columns), duration_of_animation(p_duration_of_animation * 1000), in_loop(p_in_loop),
+          total_sprites(p_sprite_lines * p_sprite_columns),first_sprite(0), final_sprite(total_sprites-1),
+          actual_sprite(first_sprite), is_finished(false){ time = new Timer(); }
 
-     public:
+        virtual ~Animation(){}
 
-       Animation(SDL_Renderer* p_renderer,
-                        std::string path,
-                        bool isactive,
-                        std::pair<int, int> displacement,
-                        int a_render_priority,
-                        unsigned int a_sprite_lines=1,
-                        unsigned int a_sprite_columns=1,
-                        double _duration_of_animation =1.0,
-                        bool _in_loop = true)
-       : Image(p_renderer, path, true, displacement,a_render_priority), sprite_lines(a_sprite_lines),
-         sprite_columns(a_sprite_columns), duration_of_animation(_duration_of_animation * 1000), in_loop(_in_loop),
-         total_sprites(a_sprite_lines * a_sprite_columns),first_sprite(0), final_sprite(total_sprites-1),
-         actual_sprite(first_sprite), is_finished(false){ time = new Timer(); }
+        bool load();
+        bool set_frame_time();
+        void draw(int, int);
+        void set_sprites_sizes(std::vector<pares>);
+  };
+}
 
-       virtual ~Animation(){}
-
-       bool load();
-       bool set_frame_time();
-       void draw(int, int);
-     };
- }
-
- #endif
+#endif

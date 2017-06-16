@@ -43,6 +43,8 @@ bool GameObject::load(){
 }
 
 void GameObject::draw(){
+  int conti = 0;
+  int conta = 0;
   for(auto image : images){
     if(image->is_active()){
       image->draw(position.first, position.second);
